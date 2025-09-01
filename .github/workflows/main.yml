@@ -41,9 +41,23 @@ jobs:
           name: Newman Report
           path: newman/*.html
 
-      - name: Creating github page branch
+      - name: Creating GitHub Page branch
         if: always()
         uses: peaceiris/actions-gh-pages@v4.0.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: newman/
+
+      - name: Send email notifications
+        if: always()
+        uses: dawidd6/action-send-mail@v6
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USER }}
+          password: ${{ secrets.EMAIL_PASS }}
+          subject: "Newman Test Report"
+          to: "recipient@example.com"
+          from: "Automation Bot <bot@example.com>"
+          body: "Postman collection execution is completed. Please find the attached report."
+          attachments: newman/NewmanReport.html
