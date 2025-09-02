@@ -54,14 +54,20 @@ jobs:
         with:
           server_address: smtp.gmail.com
           server_port: 465
+          secure: true
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "Phoneix inwaranty flow Report"
+          subject: "Phoneix In-Warranty Flow Report"
           to: "vrushalibhise16@gmail.com"
-          from: ${{ secrets.EMAIL_USERNAME }}
+          from: "Automation Bot <${{ secrets.EMAIL_USERNAME }}>"
           body: |
-                Phoneix flow has been excuted and reports has been published.
-          
-          from: "Automation Bot <bot@example.com>"
-          body: "Postman collection execution is completed. Please find the attached report."
+            Hello Team,
+
+            The Postman collection has been executed successfully.
+
+            You can download the HTML report from the attached file.
+
+            Regards,
+            Automation Bot
           attachments: newman/NewmanReport.html
+          debug: true
